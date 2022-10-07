@@ -9,7 +9,7 @@ router.post('/register',
     [
         check('name', 'Your name is required').not().isEmpty(),
         check('username', 'Your username is required').not().isEmpty(),
-        check('birthdate', 'Your birthdate is invalid').not().isEmpty(),
+        check('birthdate', 'Your birthdate is required').not().isEmpty(),
         check('email', 'Your email is required').isEmail(),
         check('password', 'Password must be 6 characters or more').isLength({ min: 6 }),
         fieldValidator
