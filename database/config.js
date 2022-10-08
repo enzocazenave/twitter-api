@@ -7,7 +7,7 @@ const dbConnection = async() => {
             useUnifiedTopology: true
         });
 
-        console.log('✔ DB')
+        console.log('✔  DB')
     } catch (error) {
         console.log(error);
         throw new Error('Failed to start database');

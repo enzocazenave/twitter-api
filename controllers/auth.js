@@ -38,7 +38,15 @@ const registerUser = async(req, res = response) => {
             name: user.name,
             username: user.username,
             email: user.email,
-            birthdate: user.birthdate
+            birthdate: user.birthdate,
+            profile_img: user.profile_img,
+            profile_banner: user.profile_banner,
+            bio: user.bio,
+            location: user.location,
+            joined: user.joined,
+            followers: user.followers,
+            following: user.following,
+            website: user.website
         }
 
         jwt.sign(data, process.env.SECRET_JWT_KEY, { expiresIn: '1h' }, (err, token) => {
@@ -66,8 +74,6 @@ const registerUser = async(req, res = response) => {
 const loginUser = async(req, res = response) => {
     const { email, password } = req.body;
 
-    console.log("LOGIN", req.body)
-
     try {
         const user = await User.findOne({ email });
 
@@ -92,7 +98,15 @@ const loginUser = async(req, res = response) => {
             name: user.name,
             username: user.username,
             email: user.email,
-            birthdate: user.birthdate
+            birthdate: user.birthdate,
+            profile_img: user.profile_img,
+            profile_banner: user.profile_banner,
+            bio: user.bio,
+            location: user.location,
+            joined: user.joined,
+            followers: user.followers,
+            following: user.following,
+            website: user.website
         }
 
         jwt.sign(data, process.env.SECRET_JWT_KEY, { expiresIn: '1h' }, (err, token) => {
@@ -117,7 +131,18 @@ const loginUser = async(req, res = response) => {
     }
 }
 
+const renewToken = async(req, res = response ) => {
+    const { id, name, username, email, birthdate, profile_img, profile_banner, bio, location, joined, followers, following, website, token } = req.body;
+    const data = { id, name, username, email, birthdate, profile_img, profile_banner, bio, location, joined, followers, following, website, token };
+    
+    res.status(201).json({
+        ok: true,
+        ...data
+    });
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    renewToken
 }
