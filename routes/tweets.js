@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createTweet, getTweets, likeTweet, getProfileInfo, getProfileInfoAll } = require('../controllers/tweets');
+const { createTweet, getTweets, likeTweet, getProfileInfo, getProfileInfoAll, getSearchedUsers } = require('../controllers/tweets');
 
 const router = Router();
 
@@ -12,5 +12,7 @@ router.patch('/tweets', [], likeTweet);
 router.post('/user', [], getProfileInfo);
 
 router.post('/all_user', [], getProfileInfoAll);
+
+router.post('/search_users', [], getSearchedUsers)
 
 module.exports = router;

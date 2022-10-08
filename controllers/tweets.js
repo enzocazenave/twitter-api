@@ -76,11 +76,31 @@ const getProfileInfoAll = async(req, res = response) => {
     })
 };
 
+const getSearchedUsers = async(req, res = response) => {
+    const { query } = req.body;
+
+    const users = await User.find();
+    const result = [];
+
+    for (const user of users) {
+        if (user.username.includes(query)) {
+            result.push(user);
+        }
+    }
+
+    res.status(200).json({
+        ok: true,
+        users: result
+    })
+
+}
+
 
 module.exports = {
     createTweet,
     getTweets, 
     likeTweet,
     getProfileInfo,
-    getProfileInfoAll
+    getProfileInfoAll,
+    getSearchedUsers
 }
