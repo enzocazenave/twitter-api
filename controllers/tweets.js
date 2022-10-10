@@ -41,18 +41,6 @@ const likeTweet = async(req, res = response) => {
     })
 }
 
-const getProfileInfo = async(req, res = response) => {
-    const { id } = req.body;
-    const user = await User.findById(id);
-
-    res.status(200).json({
-        ok: true,
-        name: user.name,
-        username: user.username,
-        profile_img: user.profile_img
-    })
-}
-
 const getProfileInfoAll = async(req, res = response) => {
 
     const { username } = req.body;  
@@ -91,16 +79,25 @@ const getSearchedUsers = async(req, res = response) => {
     res.status(200).json({
         ok: true,
         users: result
-    })
-
+    });
 }
 
+const getSuggestedUsers = async(req, res = response) => {
+    const users_qtty = await User.count();
+    const random_number = Math.floor(Math.random() * users_qtty);
+    const users = (users_qtty > 5) ? await User.find().limit(5).skip(random_number) : await User.find()
+    
+    res.status(200).json({
+        ok: true,
+        users
+    })
+}
 
 module.exports = {
     createTweet,
     getTweets, 
     likeTweet,
-    getProfileInfo,
     getProfileInfoAll,
-    getSearchedUsers
+    getSearchedUsers,
+    getSuggestedUsers
 }
