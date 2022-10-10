@@ -13,7 +13,7 @@ const createTweet = async(req, res = response) => {
         ok: true,
         msg: 'Tweet uploaded successfully',
         tweet: {
-            id: created_tweet.id,
+            _id: created_tweet.id,
             owner: created_tweet.owner,
             text: created_tweet.text,
             likes: created_tweet.likes
@@ -23,7 +23,7 @@ const createTweet = async(req, res = response) => {
 
 const getTweets = async(req, res = response) => {
     
-    const tweets = await Tweet.find().limit(15);
+    const tweets = await Tweet.find().sort({ date: -1 });
 
     res.status(200).json({
         ok: true,

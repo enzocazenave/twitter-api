@@ -2,8 +2,12 @@ const { model, Schema } = require('mongoose');
 
 const TweetSchema = Schema({
     owner: {
-        type: String,
+        type: Object,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     },
     text: {
         type: String,
